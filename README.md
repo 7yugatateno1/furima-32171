@@ -20,7 +20,7 @@
 ### Association
 
 - has_many :items
-- has_many :buy_record
+- has_many :buy_records
 
 ## items table
 
@@ -39,7 +39,7 @@
 ### Association
 
 - belongs_to :user
-- has_many :buy_record 
+- has_one :buy_record 
 
 ## buy_records table
 
@@ -51,8 +51,8 @@
 ### Association
 
 - belongs_to :user
-- has_many :items
-- has_one :destinations
+- belongs_to :items
+- has_one :destination
 
 
 ## destinations table
