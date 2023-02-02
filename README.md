@@ -3,7 +3,7 @@
 # 雛形
 |Column|Type|Options|
 
-## users table
+## users table(ユーザー情報テーブル)
 
 |Column  |Type  |Options                  |
 |--------|------|-------------------------|
@@ -16,7 +16,7 @@
 - has_many :items, dependent: :destroy, foreign_key: :items
 - has_one :buy_record, dependent: :destroy
 
-## items table
+## items table(商品情報テーブル)
 
 |Column       |Type  |Options                            |
 |-------------|----------|-------------------------------|
@@ -33,7 +33,7 @@
 
 - belongs_to :user
 
-## buy_record table
+## buy_record table(購入記録テーブル)
 
 |Column   |Type      |Options|
 |---------|----------|-------|
@@ -44,7 +44,7 @@
 
 - belongs_to :user
 
-## destination table
+## destination table(発送先情報テーブル)
 
 |Column      |Type   |Options   |
 |------------|-------|----------|
