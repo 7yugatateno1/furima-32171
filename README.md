@@ -9,7 +9,7 @@
 |--------------------|------|-------------------------|
 |name                |string|null: false              |
 |email               |string|null: false, unique: true|
-|password            |string|null: false              |
+|encrypted_password  |string|null: false              |
 |family_name         |string|null: false              |
 |first_name          |string|null: false              |
 |family_name_furigana|string|null: false              |
@@ -19,27 +19,29 @@
 
 ### Association
 
-- has_many :items, dependent: :destroy, foreign_key: :items
-- has_one :buy_record, dependent: :destroy
+- has_many :items
+- has_many :buy_record
 
 ## items table
 
 |Column          |Type      |Options                        |
 |----------------|----------|-------------------------------|
-|name            |string    |null: false, index: true       |
+|name            |string    |null: false                    |
 |text            |text      |null: false                    |
-|category_id     |integer   |null: false, foreign_key: true |
-|condition_id    |integer   |null: false, foreign_key: true |
-|delivery_cost_id|integer   |null:false, default: 0         |
-|delivery_days_id|integer   |null:false, default: 0         |
+|category_id     |integer   |null: false                    |
+|condition_id    |integer   |null: false                    |
+|delivery_cost_id|integer   |null:false                     |
+|sender_area_id  |integer   |null:false                     |
+|delivery_day_id |integer   |null:false                     |
 |price           |integer   |null:false                     |
 |user            |references|null: false, foreign_key: true |
 
 ### Association
 
 - belongs_to :user
+- has_many :buy_record 
 
-## buy_record table
+## buy_records table
 
 |Column|Type      |Options                       |
 |------|----------|------------------------------|
@@ -49,19 +51,22 @@
 ### Association
 
 - belongs_to :user
+- has_many :items
+- has_one :destinations
 
-## destination table
 
-|Column      |Type  |Options                       |
-|------------|------|------------------------------|
-|post_code   |string|null:false                    |
-|prefectures |string|null:false                    |
-|city        |string|null:false                    |
-|house_number|string|null:false                    |
-|building    |string|------------------------------|
-|phone_number|string|------------------------------|
-|buy_record  |string|null: false, foreign_key: true|
+## destinations table
+
+|Column        |Type      |Options                       |
+|--------------|----------|------------------------------|
+|post_code     |string    |null:false                    |
+|sender_area_id|string    |null:false                    |
+|city          |string    |null:false                    |
+|house_number  |string    |null:false                    |
+|building      |string    |------------------------------|
+|phone_number  |string    |null:false                    |
+|buy_record    |references|null: false, foreign_key: true|
 
 ### Association
 
-- belongs_to :user
+- belongs_to :buy_record
