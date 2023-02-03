@@ -8,4 +8,5 @@ class User < ApplicationRecord
   validates :name, :family_name, :first_name, :family_name_furigana, :first_name_furigana, :birthday, presence: true
   validates :family_name, :first_name, format: { with: FULL_WIDTH_REGEX, message: "は全角で入力して下さい" }
   validates :family_name_furigana, :first_name_furigana, format: { with: FULL_WIDTH_KANA_REGEX, message: "はカタカナ（全角）で入力して下さい" }
+  validates :name, presence: true
 end
