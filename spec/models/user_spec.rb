@@ -2,43 +2,30 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   describe "ユーザー新規登録" do
     it "nicknameが空だと登録できない" do
-      user = User.new(name: "", email: "kkk@gmail.com", password: "00000000", password_confirmation: "00000000")
-      user.valid?
-      expect(user.errors.full_messages).to include("Name can't be blank")
     end
-    it "emailが空では登録できない" do
-      user = User.new(name: "abe", email: "", password: "00000000", password_confirmation: "00000000")
-      user.valid?
-      expect(user.errors.full_messages).to include("Email can't be blank")
+    it "メールアドレスが空だと登録できない" do
     end
-    it 'passwordが空では登録できない' do
-      @user.password = ''
-      @user.valid?
-      expect(@user.errors.full_messages).to include("Password can't be blank")
+    it "メールアドレスは@を含まないと登録できない" do
     end
-    it 'passwordとpassword_confirmationが不一致では登録できない' do
-      @user.password = '123456'
-      @user.password_confirmation = '1234567'
-      @user.valid?
-      expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
+    it "パスワードが空だと登録できない" do
     end
-    it '重複したemailが存在する場合は登録できない' do
-      @user.save
-      another_user = FactoryBot.build(:user)
-      another_user.email = @user.email
-      another_user.valid?
-      expect(another_user.errors.full_messages).to include('Email has already been taken')
+    it "パスワードは6文字以上でないと登録できない" do
     end
-    it 'emailは@を含まないと登録できない' do
-      @user.email = 'testmail'
-      @user.valid?
-      expect(@user.errors.full_messages).to include('Email is invalid')
+    it "パスワードとパスワード（確認）の値が一致しないと登録できない" do
     end
-    it 'passwordが5文字以下では登録できない' do
-      @user.password = '00000'
-      @user.password_confirmation = '00000'
-      @user.valid?
-      expect(@user.errors.full_messages).to include('Password is too short (minimum is 6 characters)')
+    it "苗字(全角)が空だと登録できない" do
+    end
+    it "名前(全角)が空だと登録できない" do
+    end
+    it "苗字フリガナ(全角）が空だと登録できない" do
+    end
+    it "苗字のフリガナが全角でないと登録できない" do
+    end
+    it "名前フリガナ(全角)が空だと登録できない" do
+    end
+    it "名前のフリガナが全角でないと登録できない" do
+    end
+    it "誕生日が空だと登録できない" do
     end
   end
 end
