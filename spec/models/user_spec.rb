@@ -6,13 +6,12 @@ RSpec.describe User, type: :model do
 
   describe "ユーザー新規登録" do
 
-    #context '新規登録できる場合' do
+    context '新規登録できる場合' do
 
-      #it "全ての項目の入力が存在すれば登録できる" do
-        #@user = FactoryBot.build(:user)
-        #expect(@user).to be_valid   
-      #end
-    #end 
+      it "全ての項目の入力が存在すれば登録できる" do
+        expect(@user).to be_valid   
+      end
+    end 
 
     context '新規登録できない場合' do
 
@@ -54,19 +53,33 @@ RSpec.describe User, type: :model do
         expect(@user.errors.full_messages).to include('Password is too short (minimum is 6 characters)')
       end
 
-      it "passwordが6文字以上であれば登録できる" do
-        @user.password = '000000'
-        @user.password_confirmation = '000000'
-        @user.valid?
-        expect(@user).to be_valid
-      end
-
       it 'passwordとpassword_confirmationが不一致では登録できない' do
         @user.password = '123456'
         @user.password_confirmation = '1234567'
         @user.valid?
         expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
       end    
+
+      it '英字のみのpasswordでは登録できない' do
+        @user.password = 'abcdef'
+        @user.password_confirmation = 'abcdef'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Password は半角英字と半角数字の両方を含めて設定してください")
+      end
+
+      it '数字のみのpasswordでは登録できない' do
+        @user.password = '012345'
+        @user.password_confirmation = '012345'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Password は半角英字と半角数字の両方を含めて設定してください")
+      end
+
+      it '全角文字を含むpasswordでは登録できない' do
+        @user.password = 'あ1aい2b'
+        @user.password_confirmation = 'あ1aい2b'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Password は半角英字と半角数字の両方を含めて設定してください")
+      end
 
       it "姓(全角)が空だと登録できない" do
         @user.family_name = ''
