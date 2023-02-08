@@ -10,4 +10,7 @@ class User < ApplicationRecord
   validates :family_name, :first_name, format: { with: FULL_WIDTH_REGEX, message: "は全角で入力して下さい" }
   validates :family_name_furigana, :first_name_furigana, format: { with: FULL_WIDTH_KANA_REGEX, message: "はカタカナ（全角）で入力して下さい" }
   validates :password, format: { with: VALID_PASSWORD_REGEX, message: "は半角英字と半角数字の両方を含めて設定してください" }
+  
+  has_many :items
+  has_many :buy_records
 end
