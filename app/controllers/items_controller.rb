@@ -2,15 +2,21 @@ class ItemsController < ApplicationController
   before_action :move_to_index, except: [:index]
 
   def index
-    #@items = Item.all
+    @items = Item.all
   end
 
   def new
-    #@items = Items.new
+    @items = Item.new
   end
 
   def create
-        
+    @items = Item.new
+  end
+
+  private
+
+  def item_params
+    params.require(:item).permit(:name, :image, :text)
   end
 
   def move_to_index
