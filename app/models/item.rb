@@ -1,4 +1,5 @@
 class Item < ApplicationRecord
+  include ActiveHash::Associations
   validates :name, :text, :category_id, :condition_id, :delivery_cost_id, :sender_area_id, :delivery_day_id, :price, :image, presence: true
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :category
