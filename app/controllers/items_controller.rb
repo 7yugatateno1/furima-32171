@@ -1,18 +1,12 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!
-
-  #before_action :move_to_index, except: [:index]
+  before_action :authenticate_user!, except: [:index]
 
   def index
     #@items = Item.all
   end
 
   def new
-    @item = Item.new
-  end
-
-  def create
-    @item = Item.create(item_params)
+    @item = Item.new(item_params)
     if @item.save
       redirect_to action: :index
     else
@@ -30,9 +24,4 @@ class ItemsController < ApplicationController
     #params.require(:message).permit(:content, :image).merge(user_id: current_user.id)
   #end
 
-  def move_to_index
-    unless user_signed_in?
-      redirect_to new_user_session_path
-    end
-  end
 end
