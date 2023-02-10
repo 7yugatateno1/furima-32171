@@ -9,9 +9,9 @@ RSpec.describe Item, type: :model do
 
     context '商品出品できる場合' do
 
-      #it "全ての項目の入力が存在すれば登録できる" do
-        #expect(@item).to be_valid   
-      #end
+      it "全ての項目の入力が存在すれば登録できる" do
+        expect(@item).to be_valid   
+      end
     end 
 
     context '商品出品できない場合' do
@@ -83,9 +83,15 @@ RSpec.describe Item, type: :model do
       end
 
       it "priceが10000000以上の値では保存できない" do
-        @item.price = '123456789'
+        @item.price = 123456789
         @item.valid?
         expect(@item.errors.full_messages).to include("Price must be less than or equal to 9999999")
+      end
+
+      it "userが紐づいていないと保存できない" do
+        @item.user= nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include('User must exist')
       end
     end
   end
