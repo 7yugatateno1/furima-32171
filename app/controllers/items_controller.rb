@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :move_to_index, except: [:index]
+  before_action :move_to_index, except: [:index, :show]
 
   def index
     @items = Item.all
@@ -24,11 +24,19 @@ class ItemsController < ApplicationController
     params.require(:item).permit(:name, :text, :category_id, :condition_id, :delivery_cost_id, :sender_area_id, :delivery_day_id, :price, :image).merge(user_id: current_user.id)
   end
 
-  def message_params
-    params.require(:message).permit(:content, :image).merge(user_id: current_user.id)
-  end
+  #def message_params
+    #params.require(:message).permit(:content, :image).merge(user_id: current_user.id)
+  #end
+
+  #def authenticate_user
+    #if Item.find(params[:id]).seller != current_user
+      #redirect_to root_path
+    #end
+  #end
 
   def move_to_index
-    redirect_to root_path unless user_signed_in?
+    unless user_signed_in?
+      redirect_to new_user_session_path
+    end
   end
 end
