@@ -1,11 +1,12 @@
 class Item < ApplicationRecord
   validates :name, :text, :category_id, :condition_id, :delivery_cost_id, :sender_area_id, :delivery_day_id, :price, :image, presence: true
   belongs_to :user
-  has_one :buy_record
+  #has_one :buy_record
   has_one_attached :image
   validates :price, numericality: { only_integer: true, greater_than_or_equal_to:300, less_than_or_equal_to:9_999_999 }
   VALID_PRICE_REGEX = /\A[0-9]+\z/
   validates :price, format: { with: VALID_PRICE_REGEX }
+  validates :category_id, :condition_id, :delivery_cost_id, :sender_area_id, :delivery_day_id, numericality: { other_than: 1 } 
   #enum condition_id: {"新品、未使用":2, "未使用に近い":3, "目立った傷や汚れなし":4, "やや傷や汚れあり":5, "傷や汚れあり":6, "全体的に状態が悪い":7} 
   #enum ddelivery_cost_id: {"送料込み（出品者負担）":2, "着払い（購入者負担）":3} 
   #enum sender_area_id: {
