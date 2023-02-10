@@ -1,13 +1,5 @@
 class Category < ActiveHash::Base
-  #extend ActiveHash::Associations::ActiveRecordExtensions
-  #belongs_to :category
-
-  #空の投稿を保存できないようにする
-  #validates :name, :text, presence: true
-
-  #ジャンルの選択が「---」の時は保存できないようにする
-  #validates :category_id, numericality: { other_than: 1 } 
-
+  has_many :items
   self.data = [
     { id: 1, name: '---' },
     { id: 2, name: 'メンズ' },

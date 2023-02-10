@@ -1,5 +1,6 @@
 class Item < ApplicationRecord
   validates :name, :text, :category_id, :condition_id, :delivery_cost_id, :sender_area_id, :delivery_day_id, :price, :image, presence: true
+  belongs_to_active_hash :prefecture
   belongs_to :user
   #has_one :buy_record
   has_one_attached :image

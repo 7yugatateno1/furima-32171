@@ -1,4 +1,5 @@
 class SenderArea < ActiveHash::Base
+  has_many :items
   self.data = [
     { id: 1, name: '---' },
     { id: 2, name: '北海道' }, 
