@@ -1,18 +1,21 @@
 class ItemsController < ApplicationController
-  before_action :move_to_index, except: [:index]
+  before_action :authenticate_user!
+
+  #before_action :move_to_index, except: [:index]
 
   def index
     #@items = Item.all
   end
 
   def new
-    @items = Item.new
+    @item = Item.new
+    @item.item_images.new
   end
 
   def create
-    @items = Item.create(item_params)
-    if @items.save
-      render 'index'
+    @item = Item.create(item_params)
+    if @item.save
+      redirect_to action: :index
     else
       render 'new'
     end
@@ -26,12 +29,6 @@ class ItemsController < ApplicationController
 
   #def message_params
     #params.require(:message).permit(:content, :image).merge(user_id: current_user.id)
-  #end
-
-  #def authenticate_user
-    #if Item.find(params[:id]).seller != current_user
-      #redirect_to root_path
-    #end
   #end
 
   def move_to_index
