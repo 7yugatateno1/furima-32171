@@ -1,6 +1,5 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :set_item, only: [:show, :edit, :update]
   before_action :find_item, only: [:show, :edit, :update]
 
   def index
@@ -46,10 +45,6 @@ class ItemsController < ApplicationController
 
   def item_params
     params.require(:item).permit(:name, :text, :category_id, :condition_id, :delivery_cost_id, :sender_area_id, :delivery_day_id, :price, :image).merge(user_id: current_user.id)
-  end
-
-  def set_item
-    @item = Item.find(params[:id])
   end
 
   def find_item
