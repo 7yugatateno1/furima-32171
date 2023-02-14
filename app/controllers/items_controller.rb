@@ -45,11 +45,9 @@ class ItemsController < ApplicationController
     
     if @item.user_id = current_user.id
       @item.destroy
-    end
-
-    if @item.destroy
       redirect_to action: :index
     end
+
   end
 
   private
