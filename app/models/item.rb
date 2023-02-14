@@ -7,7 +7,7 @@ class Item < ApplicationRecord
   belongs_to :delivery_day
   belongs_to :sender_area
   belongs_to :user
-  #has_one :buy_record
+  has_one :buy_record
   has_one_attached :image
   validates :price, numericality: { only_integer: true, greater_than_or_equal_to:300, less_than_or_equal_to:9_999_999 }
   VALID_PRICE_REGEX = /\A[0-9]+\z/
